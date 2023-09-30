@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Animation with Tracks</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .con {
+            height: 150px;
+            width: 1500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tracks {
+            background-color: #333; /* Dark color for tracks */
+            height: 10px; /* Height of the tracks */
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        #imgg {
+            height: 150px;
+            position: absolute;
+        }
+
+        #button-container {
+            display: flex;
+        }
+
+        #start,
+        #stop {
+            background-color: blue;
+            padding: 10px;
+            margin-top: 10px;
+            margin-right: 10px;
+            color: white;
+            margin-top: 10px;
+            border: none;
+            color: aliceblue;
+        }
+
+        #stop {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="con">
+        <!-- Tracks -->
+        <div class="tracks"></div>
+        <img src="https://78.media.tumblr.com/ca1d6ceef397ebbde034061554492dc0/tumblr_mqbi6xRx151snwht4o1_500.gif" id="imgg">
+    </div>
+    <h2 style="color: blue;">Click the following buttons to handle animations</h2>
+    <div id="button-container">
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+    </div>
+   
+    <script>
+        var train = document.getElementById("imgg");
+        var startbtn = document.getElementById('start');
+        var stopbtn = document.getElementById('stop');
+        let animationId;
+        let position = 0;
+        const speed = 3;
+
+        function move() {
+            position += speed;
+            train.style.left = position + 'px';
+
+            if (position >= 1500) {
+                position = -150; // Reset position to the beginning
+            }
+
+            animationId = requestAnimationFrame(move);
+        }
+
+        function startt() {
+            if (!animationId) {
+                animationId = requestAnimationFrame(move);
+            }
+        }
+
+        function stopp() {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+        }
+
+        startbtn.addEventListener('click', startt);
+        stopbtn.addEventListener('click', stopp);
+    </script>
+</body>
+</html>
